@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <title>Student e-Portfolio | Mohd Shahrul Bin Mohd Yusof</title>
+    <style>
+        :root {
+            --primary-color: #F99D1C; /* Official SDG 7 Amber */
+            --primary-dark: #D97706;
+            --primary-light: #FEF3C7;
+            --secondary-dark: #1E293B;
+            --background-light: #F8FAFC;
+            --card-background: #FFFFFF;
+            --text-main: #334155;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--background-light);
+        }
+
+        /* Sticky Navigation Bar */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--secondary-dark);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero / Home Section */
+        header {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, #0F172A 100%);
+            color: var(--white);
+            padding: 5rem 2rem 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--primary-color);
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .sdg-badge {
+            background-color: var(--primary-color);
+            color: var(--secondary-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+
+        .profile-info {
+            font-size: 1.1rem;
+            color: var(--primary-light);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .profile-info span {
+            display: inline-block;
+            margin: 0 0.5rem;
+        }
+
+        .introduction-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 4px solid var(--primary-color);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            margin-top: 2rem;
+        }
+
+        .introduction-box p {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        .introduction-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Section Generic Layout */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: var(--secondary-dark);
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* Grid Framework for Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card {
+            background-color: var(--card-background);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            background-color: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #E2E8F0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .video-placeholder svg {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 0.5rem;
+            fill: var(--text-muted);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--secondary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .card-reflection {
+            background-color: var(--background-light);
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--primary-color);
+            margin-top: auto;
+            font-style: italic;
+        }
+
+        .project-meta {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .project-meta strong {
+            color: var(--secondary-dark);
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--secondary-dark);
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+            gap: 0.5rem;
+        }
+
+        .github-btn:hover {
+            background-color: #0F172A;
+        }
+
+        /* Reflection Section */
+        .reflection-container {
+            background-color: var(--card-background);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+            max-width: 900px;
+        }
+
+        .reflection-container p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* Skills Section */
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background-color: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(249, 157, 28, 0.2);
+        }
+
+        /* Resources Section */
+        .resources-card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        .resources-list {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .resources-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-acknowledgement {
+            background-color: #F1F5F9;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 5rem;
+            border-top: 4px solid var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-bottom: 0.25rem;
+            color: #94A3B8;
+        }
+
+        footer strong {
+            color: var(--white);
+        }
+
+        /* Responsive Layout Updates */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .profile-info {
+                font-size: 0.95rem;
+            }
+
+            .profile-info span {
+                display: block;
+                margin: 0.25rem 0;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">SOLARCALC e-PORTFOLIO</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#labs">Labs</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#reflection">Reflection</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#resources">Resources</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="header-content">
+            <div class="sdg-badge">SDG 7: Affordable and Clean Energy</div>
+            <h1>MOHD SHAHRUL BIN MOHD YUSOF</h1>
+            <div class="profile-info">
+                <strong>Matric No:</strong> A214185 <span>|</span> 
+                <strong>Programme:</strong> Bachelor in Information Technology (Honours) <span>|</span> 
+                <strong>Instructor:</strong> Dr. Nazatul Aini
+            </div>
+            
+            <div class="introduction-box">
+                <p><strong>Core Focus:</strong> My projects are focused on developing structural methods to calculate the solar power generation capacity per panel that will be installed in specified target locations.</p>
+                <p><strong>SDG Alignment Reflection:</strong> We need to actively control and manage our over-consumption culture. If left unchecked, it will continue to negatively affect our shared global sustainability, specifically degrading the environment and energy security for next generations.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="labs">
+        <h2>Laboratory Exercises</h2>
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11zM10 7.5v9l6-4.5-6-4.5z"/></svg>
+                        [Lab 1 Video Link Pending Presentation Setup]
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Lab 1: User Interface Foundation</div>
+                    <div class="card-description">Designing static application layouts using Declarative Jetpack Compose components. Laid out structural entry rows for gathering initial physical properties of solar installation options.</div>
+                    <div class="card-reflection">
+                        This laboratory laid down the visual groundwork for establishing responsive form input components. I acquired fundamental knowledge regarding Compose layouts, alignment configurations, and state-independent component styling.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/AwZfC08Lk9w" title="Lab 2 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Lab 2: State Management & Interactivity</div>
+                    <div class="card-description">Implementing state structures to control user interactivity, enabling real-time capture and mathematical calculation variables across text input components.</div>
+                    <div class="card-reflection">
+                        I learned how to efficiently utilize mutable state and remember state scope blocks inside Compose functions. This enabled immediate UI value changes based on live numbers keyed into the calculator module.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/txRACgObjeo" title="Lab 3 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Lab 3: Material Design Integration</div>
+                    <div class="card-description">Applying customized Material Design 3 guidelines to fit clean-energy themes, customizing color palettes, elevation states, and clear text hierarchies.</div>
+                    <div class="card-reflection">
+                        Integrating Material design tokens improved application readability. Custom theme files allowed me to easily anchor functional colors mimicking sustainable clean-energy styles, matching the SDG 7 core ethos.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/jevzI_bj1Tg" title="Lab 4 Video Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Lab 4: Navigation Flow & ViewModels</div>
+                    <div class="card-description">Building complete structural app navigation using Compose Jetpack Navigation controllers and separating state objects using ViewModels.</div>
+                    <div class="card-reflection">
+                        This session showed me how to structure multi-screen applications. Utilizing a central ViewModel allowed persistent transfer of calculations and structural configurations safely between different navigation destination views.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11zM10 7.5v9l6-4.5-6-4.5z"/></svg>
+                        [Lab 5 Video Link Pending Presentation Setup]
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Lab 5: Local Persistence with Room</div>
+                    <div class="card-description">Implementing local database architectures via Room DB to handle persistent data entities, standard DAOs, and repository workflows offline.</div>
+                    <div class="card-reflection">
+                        Setting up Room database components taught me how to store critical user calculations locally. It enabled full offline caching, ensuring calculations remain fully persistent across hardware restarts.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Core Development Projects</h2>
+        <div class="card-grid">
+
+            <div class="card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube-nocookie.com/embed/o-4vpFUsr98" title="Project 1 Video Review" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Project 1: SOLARCALC Foundation</div>
+                    <div class="project-meta">
+                        <strong>Problem Statement:</strong> Consumers lack quick, localized tools to calculate energy output details before setting up solar modules, making evaluation complex. SOLARCALC provides an accessible, mobile multi-screen layout to calculate local energy yield instantly.
+                    </div>
+                    <a href="https://github.com/ShahrulYusof-ukm/a214185_nazatulaini_project1a.git" class="github-btn" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        View on GitHub
+                    </a>
+                    <div class="card-reflection">
+                        <strong>Lessons Learned:</strong> Mastering multi-screen state transitions inside structured Compose graphs significantly bolstered app flow. I learned how to manage shared configurations using abstract ViewModel stores effectively.
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="video-container">
+                    <div class="video-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M23 12c0 6.075-4.925 11-11 11S1 18.075 1 12 5.925 1 12 1s11 4.925 11 11zM10 7.5v9l6-4.5-6-4.5z"/></svg>
+                        [Project 2 Video Link Pending Cloud Deployment Review]
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-title">Project 2: Advanced SOLARCALC</div>
+                    <div class="project-meta">
+                        <strong>Problem Statement:</strong> Static calculations fail to take into account immediate live environment updates or dynamic regional weather conditions. Advanced SOLARCALC integrates external web services and sensors to query live geographic irradiance figures instantly.
+                    </div>
+                    <a href="https://github.com/ShahrulYusof-ukm/a214185_nazatulaini_project2a.git" class="github-btn" target="_blank">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        View on GitHub
+                    </a>
+                    <div class="card-reflection">
+                        <strong>Lessons Learned:</strong> Implementing external API tracking via Retrofit coupled with cloud sync through Firebase Firestore provided huge architectural insight. Working with native location sensors enabled clean automated calculations relative to local device coordinates.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="reflection">
+        <h2>Reflection & Learning Journey</h2>
+        <div class="reflection-container">
+            <p>
+                My overall journey across the Mobile Programming curriculum allowed me to grow substantially from writing basic static view items into managing intricate hardware-connected application suites. Constructing the SOLARCALC software architecture presented practical exposure to real-world software creation requirements, directly resolving user-centric constraints using clean technology implementations.
+            </p>
+            <p>
+                Overcoming complex hurdles such as asynchronous remote data fetching via Coroutines and state tracking across navigation layers significantly deepened my development insight. Ultimately, this course has empowered me to engineer complete, data-driven mobile architectures designed to positively contribute towards environmental sustainability goals.
+            </p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Skills & Tech Stack</h2>
+        <div class="skills-list">
+            <span class="skill-tag">Kotlin</span>
+            <span class="skill-tag">Jetpack Compose</span>
+            <span class="skill-tag">Room Database</span>
+            <span class="skill-tag">Retrofit</span>
+            <span class="skill-tag">Firebase Firestore</span>
+            <span class="skill-tag">Android Location Services</span>
+            <span class="skill-tag">State Management</span>
+            <span class="skill-tag">Jetpack Navigation</span>
+            <span class="skill-tag">MVVM Architecture</span>
+        </div>
+    </section>
+
+    <section id="resources">
+        <h2>Resources & Credits</h2>
+        <div class="resources-card">
+            <p><strong>Core Frameworks & Web Libraries Used:</strong></p>
+            <ul class="resources-list">
+                <li><strong>Retrofit & OkHttp:</strong> Utilized for establishing clean HTTP requests to external REST platforms for dynamic climate tracking.</li>
+                <li><strong>Room Components:</strong> Handles safe SQLite database object mappings for offline storage.</li>
+                <li><strong>Firebase SDK:</strong> Employed to support persistent cloud data storage pipelines across device configurations.</li>
+                <li><strong>Material 3 Suite:</strong> Providing UI styling assets used to present accessible interface themes.</li>
+            </ul>
+            <div class="ai-acknowledgement">
+                <strong>Artificial Intelligence Assistance Acknowledgement:</strong> Modern Generative AI platforms were consulted responsibly as part of my learning journey. They assisted in structuring complex layout files, optimizing asynchronous database repository workflows, and formatting this e-Portfolio page structure to adhere strictly to web design parameters.
+            </div>
+        </div>
+    </section>
+
+    <footer role="contentinfo">
+        <p><strong>MOHD SHAHRUL BIN MOHD YUSOF</strong> | Matric No: A214185</p>
+        <p>TM2213 Mobile Programming e-Portfolio Portfolio | &copy; 2026</p>
+    </footer>
+
+</body>
+</html>
